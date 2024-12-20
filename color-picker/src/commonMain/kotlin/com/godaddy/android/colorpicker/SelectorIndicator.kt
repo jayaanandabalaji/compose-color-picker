@@ -47,20 +47,23 @@ internal fun DrawScope.drawSelectorIndicator(
     selectionSize: Size,
     strokeThicknessPx: Float
 ) {
-    val selectionStyle = Stroke(strokeThicknessPx)
-    drawRect(
-        Color.Gray,
-        topLeft = offset,
-        size = selectionSize,
-        style = selectionStyle
+    val circleSize = 14.dp.toPx()
+
+    // Calculate the center of the circle
+    val center = Offset(
+        x = offset.x + circleSize / 2f,
+        y = offset.y + circleSize / 2f
     )
-    drawRect(
-        Color.White,
-        topLeft = offset + Offset(strokeThicknessPx, strokeThicknessPx),
-        size = selectionSize.inset(2 * strokeThicknessPx),
-        style = selectionStyle
+
+    // Draw the circle with the color #425669
+    drawCircle(
+        color = Color(0xFF425669),
+        radius = circleSize / 2f,
+        center = center
     )
+
 }
+
 
 internal fun Size.inset(amount: Float): Size {
     return Size(width - amount, height - amount)

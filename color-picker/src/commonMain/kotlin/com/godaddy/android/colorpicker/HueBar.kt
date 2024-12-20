@@ -29,7 +29,7 @@ fun HueBar(
     onHueChanged: (Float) -> Unit
 ) {
     val rainbowBrush = remember {
-        Brush.verticalGradient(getRainbowColors())
+        Brush.horizontalGradient(getRainbowColors())
     }
     Canvas(
         modifier = modifier
@@ -38,11 +38,12 @@ fun HueBar(
                 forEachGesture {
                     awaitPointerEventScope {
                         val down = awaitFirstDown()
-                        onHueChanged(getHueFromPoint(down.position.y, size.height.toFloat()))
+                        onHueChanged(getHueFromPoint(down.position.x, size.width.toFloat()))
                         drag(down.id) { change ->
                             change.consumePositionChange()
-                            onHueChanged(getHueFromPoint(change.position.y, size.height.toFloat()))
+                            onHueChanged(getHueFromPoint(change.position.x, size.width.toFloat()))
                         }
+
                     }
                 }
             }
@@ -50,8 +51,8 @@ fun HueBar(
         drawRect(rainbowBrush)
         drawRect(Color.Gray, style = Stroke(0.5.dp.toPx()))
 
-        val huePoint = getPointFromHue(color = currentColor, height = this.size.height)
-        drawVerticalSelector(huePoint)
+        val huePoint = getPointFromHue(color = currentColor, width = this.size.width)
+        drawHorizontalSelector(huePoint)
     }
 }
 
@@ -72,11 +73,12 @@ private fun getRainbowColors(): List<Color> {
     )
 }
 
-private fun getPointFromHue(color: HsvColor, height: Float): Float {
-    return height - (color.hue * height / 360f)
+private fun getPointFromHue(color: HsvColor, width: Float): Float {
+    return (360f - color.hue) * width / 360f // Inverted logic for correct mapping
 }
 
-private fun getHueFromPoint(y: Float, height: Float): Float {
-    val newY = y.coerceIn(0f, height)
-    return 360f - newY * 360f / height
+private fun getHueFromPoint(x: Float, width: Float): Float {
+    val newX = x.coerceIn(0f, width)
+    return 360f - (newX * 360f / width) // Inverted logic to fix the hue
 }
+

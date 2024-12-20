@@ -140,11 +140,11 @@ publishing {
 
     repositories {
         maven {
-            setUrl("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
-            credentials {
-                username = sonatypeUsername
-                password = sonatypePassword
-            }
+            setUrl("localMavenFolderpath/localMaven")
+//            credentials {
+//                username = sonatypeUsername
+//                password = sonatypePassword
+//            }
         }
     }
 }
