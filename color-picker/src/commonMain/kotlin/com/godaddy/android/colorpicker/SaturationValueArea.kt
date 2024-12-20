@@ -31,7 +31,7 @@ import com.github.ajalt.colormath.model.HSV
  * saturation, value both between 0 - 1.
  */
 @Composable
-internal fun SaturationValueArea(
+fun SaturationValueArea(
     modifier: Modifier = Modifier,
     currentColor: HsvColor,
     onSaturationValueChanged: (saturation: Float, value: Float) -> Unit

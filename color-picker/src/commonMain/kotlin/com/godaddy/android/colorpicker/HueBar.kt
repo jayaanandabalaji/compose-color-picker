@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
  * @param onHueChanged the callback that is invoked when hue value changes. Hue is between 0 - 360.
  */
 @Composable
-internal fun HueBar(
+fun HueBar(
     modifier: Modifier = Modifier,
     currentColor: HsvColor,
     onHueChanged: (Float) -> Unit
